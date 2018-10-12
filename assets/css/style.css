@@ -22,3 +22,13 @@ body {
     margin: 0 auto;
     text-align: center;
 }
+.question {
+    margin: 30px;
+    font-size: 30px;
+}
+.answerbutton {
+    width: 500px;
+}
+.restartButton {
+    width: 500px;
+}
