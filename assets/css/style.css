@@ -78,14 +78,14 @@ input:hover {
     #box {
         background-color: lightgoldenrodyellow;
         height: 500px;
-        width: 4500px;
+        width: 450px;
         margin: 0 auto;
         margin-top: 50px;
     }
     button {
-        width:200px;
+        width:50px;
     }
     input {
-        width: 200px;
+        width: 50px;
     }
 }
