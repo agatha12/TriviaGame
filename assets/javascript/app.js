@@ -83,6 +83,7 @@ function game() {
                 game()
             }
             else {
+                clearInterval(t)
                 var incorrect = setTimeout(game, 3000)
                 displayGIf("assets/images/wrong.gif", "That was not correct!")
 
