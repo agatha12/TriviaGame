@@ -1,45 +1,54 @@
-var question = ["What is one?", "two", "three", "four"]
-var answer = [["one", "two", "three", "four"], ["one", "two", "three", "four"], ["one", "two", "three", "four"], ["one", "two", "three", "four"]]
-var correct = ["one", "two", "three", "four"]
+var question = ["What is the fastest bird?", "What is the only mammal, other than the duck billed platypus, that lays eggs?", "The Python is a poisonous snake.", "What is the largest crustacean?", "Where is the heart of a shrimp located?"]
+var answer = [["Bald Eagle", "White-throated Needletail", "Peregrine Falcon", "Golden Eagle"], ["Spiney Anteater", "Canadian Goose", "Beaver", "Mongolian Gerbil"], ["True", "False",], ["American Lobster", "Japanese Spider Crab", "Coconut Crab", "King Crab"], ["it's tail", "it's head", "it's chest", "it's shoulder"]]
+var correct = ["Peregrine Falcon", "Spiney Anteater", "False", "Japanese Spider Crab", "it's head"]
 var selection = []
 var currentAnswer = []
 var currentQuestion = 0
 var score = 0
+var badscore = 0
+var unanswer = 0
 var t
 var time = 30
+var correctGIF = ["assets/images/1correct.gif", "assets/images/2correct.gif", "assets/images/3correct.gif", "assets/images/4correct.gif", "assets/images/5correct.gif", "assets/images/6correct.gif", "assets/images/7correct.gif", "assets/images/8correct.gif"]
+var wrongGIF = ["assets/images/1wrong.gif", "assets/images/2wrong.gif", "assets/images/3wrong.gif", "assets/images/4wrong.gif", "assets/images/5wrong.gif", "assets/images/6wrong.gif", "assets/images/7wrong.gif", "assets/images/8wrong.gif"]
 
 $(document).ready(function () {
     var start = $("<button>")
     start.addClass("startbutton")
     start.text("Start")
-    start.css({ "margin-top": "100px", "width": "200px", "font-size": "20px" })
+    start.css({ "margin-top": "100px", "width": "200px", "font-size": "40px" })
     $("#game").append(start)
     $(".startbutton").on("click", game)
-
 })
-
 
 function timer() {
     $(".timer").empty()
     $(".timer").prepend("You have " + time + " second left.")
     time--
-
     if (time === -1) {
-            var tUp = setTimeout(game, 3000)
-            displayGIf("assets/images/timesup.gif", "Times Up!")
+        var tUp = setTimeout(game, 3000)
+        clearInterval(t)
+        unanswer++
+        displayGIf(wrongGIF[currentQuestion], "Times Up! The correct answer was " + (correct[currentQuestion]))
     }
 }
-
-
 
 function game() {
     clearInterval(t)
     $("#game").empty()
     if (currentQuestion === question.length) {
-        $("#game").html("Game Over! Your score is " + score + "/4")
+        $("#timer").empty()
+        $("#game").append("<p>All done, here's how you did!</p>")
+        $("#game").append("<br><br>")
+        $("#game").append("Correct Answers: " + score)
+        $("#game").append("<br><br>")
+        $("#game").append("Incorrect Answers: " + badscore)
+        $("#game").append("<br><br>")
+        $("#game").append("Unanswered: " + unanswer)
+        $("#game").append("<br><br>")
         var button = $("<button type=button>")
         button.addClass("restartButton")
-        button.val("Restart Game")
+        button.text("Play Again")
         $("#game").append(button)
         $(".restartButton").on("click", reset)
     }
@@ -48,13 +57,14 @@ function game() {
         time = 5
         var left = $("<div>")
         left.addClass("timer")
-        $("#game").prepend(left)
+        $("#timer").empty()
+        $("#timer").prepend(left)
         t = setInterval(timer, 1000)
         var q = $("<div>")
         q.addClass("question")
         q.text(question[currentQuestion])
         $("#game").append(q)
-
+        $("#game").append(button)
         var a = $("<form>")
         a.addClass("answer")
         $(".question").append(a)
@@ -65,29 +75,21 @@ function game() {
                 option.addClass("answerbutton")
                 $(".answer").append(option)
                 currentAnswer.push(option.val())
-
             }
         }
-
-
-
         $(".answerbutton").on("click", checkanswer)
         function checkanswer() {
             var x = $(this).val()
-            console.log(time)
-
-
+            clearInterval(t)
             if (x === correct[currentQuestion]) {
                 score++
-                currentQuestion = currentQuestion + 1
-                game()
+                var youcorrect = setTimeout(game, 3000)
+                displayGIf(correctGIF[currentQuestion], "That was correct!")
             }
             else {
-                clearInterval(t)
+                badscore++
                 var incorrect = setTimeout(game, 3000)
-                displayGIf("assets/images/wrong.gif", "That was not correct!")
-
-
+                displayGIf(wrongGIF[currentQuestion], "That was incorrect. The correct answer was " + (correct[currentQuestion]))
             }
         }
     }
@@ -98,21 +100,23 @@ function reset() {
     currentAnswer = []
     currentQuestion = 0
     score = 0
+    badscore = 0
+    unanswer = 0
     game()
 }
 
-function displayGIf(GIF, text){
-        currentQuestion = currentQuestion + 1
-        $("#game").empty()
-        var image = $("<img>")
-        image.attr("src", GIF)
-        image.addClass("gif")
-        var words = $("<p>")
-        words.text(text)
-        $("#game").append(text)
-        $("#game").append(image)
+function displayGIf(GIF, text) {
+    currentQuestion = currentQuestion + 1
+    $("#game").empty()
+    var image = $("<img>")
+    image.attr("src", GIF)
+    image.addClass("gif")
+    var words = $("<div>")
+    words.text(text)
+    $("#game").append(text)
+    $("#game").append("<br><br>")
+    $("#game").append(image)
 }
-
 
 
 

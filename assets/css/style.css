@@ -3,20 +3,32 @@ body {
     background-repeat: no-repeat;
     background-size: 1500px 800px;
     background-color: lightgoldenrodyellow;
+    color: brown;
+    font-family: cursive;
+    font-size: 20px;
 }
-
+button {
+    color: brown;
+    font-family: cursive;
+    font-size: 20px;
+    background-color: lightgoldenrodyellow;
+    border-color: brown;
+    border: 15px;
+}
 #box {
     background-color: lightgoldenrodyellow;
     height: 500px;
     width: 800px;
     margin: 0 auto;
-    margin-top: 20px;
+    margin-top: 50px;
 }
-
 #title {
     text-align: center;
     margin: 20px;
+    margin-top: 5px;
     font-size: 70px;
+    color: brown;
+    font-family: cursive;
 }
 #game {
     margin: 0 auto;
@@ -28,7 +40,32 @@ body {
 }
 .answerbutton {
     width: 500px;
+    background-color: lightgoldenrodyellow;
+    border-color: brown;
+    border: 15px;
+    color: brown;
+    font-size: 20px;
+    font-family: cursive;
+   
 }
 .restartButton {
     width: 500px;
+    height: 50px;
+}
+.gif {
+    width: 250px;
+    height: 300px;
+}
+#timer {
+    text-align: center;
+    background-color: lightgoldenrodyellow;
+}
+form {
+    margin-top: 40px;
+}
+button:hover {
+    background-color: tan
+}
+input:hover {
+    background-color: tan
 }
