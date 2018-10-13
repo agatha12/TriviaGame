@@ -82,10 +82,10 @@ input:hover {
         margin: 0 auto;
         margin-top: 50px;
     }
-    button {
-        width:50px;
+    .restartbutton {
+        width:200px;
     }
-    input {
-        width: 50px;
+    .answerbutton {
+        width: 200px;
     }
 }
